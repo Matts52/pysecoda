@@ -1,13 +1,21 @@
 from .pysecoda import PySecoda
 from pprint import pprint
 
-if __name__ == "__main__":
-    api = PySecoda("API_KEY")
+from dotenv import load_dotenv
+import os
 
-    print("Fetching groups...")
-    groups = api.groups.get_groups()
-    pprint(groups)
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
+
+if __name__ == "__main__":
+    api = PySecoda(API_KEY)
+
+    tables = api.tables.get_tables()
+    print("Fetching data...")
+    pprint(tables)
     
+    #pprint(api.tags.get_user_by_id('18eb02a4-85ca-4594-8244-bbcf2571ec65'))
+
     #print("Creating a new tag...")
     #new_tag = api.create_tag("Urgent", "Indicates urgent items", "#FF0000")
     #pprint(new_tag)

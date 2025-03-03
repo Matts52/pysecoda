@@ -19,6 +19,9 @@ class APIClient:
             "Accept": "application/json"
         }
 
+    def get_base_url(self):
+        return self.__base_url
+
     def _request(self, method: str, endpoint: str, params=None, data=None):
         """
         Internal method to send HTTP requests.

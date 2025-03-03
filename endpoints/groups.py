@@ -39,7 +39,14 @@ class GroupsEndpoint:
 
         :return: API response containing the groups.
         """
-        return self.client.get("/auth/group/")
+        all_results = []
+        endpoint = "/auth/group/"
+        while endpoint:
+            response = self.client.get(endpoint)
+            data = response['results']
+            all_results.extend(data)
+            endpoint = response['links']['next']  # Get the next page URL
+        return all_results
 
     def get_group_by_id(self, group_id: str):
         """

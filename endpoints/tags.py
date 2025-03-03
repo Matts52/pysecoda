@@ -33,7 +33,14 @@ class TagsEndpoint:
 
         :return: API response containing the tags.
         """
-        return self.client.get("/tag/")
+        all_results = []
+        endpoint = "/tag/"
+        while endpoint:
+            response = self.client.get(endpoint)
+            data = response['results']
+            all_results.extend(data)
+            endpoint = response['links']['next']  # Get the next page URL
+        return all_results
 
     def get_tag_by_id(self, tag_id: str):
         """
