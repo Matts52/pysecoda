@@ -54,6 +54,7 @@ class ResourcesEndpoint:
         Fetches the list of all resources in the workspace.
         """
         all_results = []
+        page_num = 1
 
         # set url params
         if filter is not None:

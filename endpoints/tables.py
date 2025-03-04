@@ -114,6 +114,21 @@ class TablesEndpoint:
 
         return self.resources.get_resources(filter=filter)
 
+    def get_table_by_id(self, table_id: str):
+        """
+        Fetches the table.
+
+        :return: API response containing the table.
+        """
+        filter_dict = {"operator":"exact", "field":"id", "value":f"{table_id}"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
+
     def update_table(self, table_id: str, **kwargs):
         """
         Updates a table using a PATCH request.

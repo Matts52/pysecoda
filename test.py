@@ -13,21 +13,20 @@ if __name__ == "__main__":
     tables = api.tables.get_tables()
     print("Fetching data...")
     pprint(tables)
-    
+
     #pprint(api.tags.get_user_by_id('18eb02a4-85ca-4594-8244-bbcf2571ec65'))
 
     #print("Creating a new tag...")
-    #new_tag = api.create_tag("Urgent", "Indicates urgent items", "#FF0000")
+    #new_tag = api.tags.create_tag("Random Tag", "Indicates urgent items", "#FF0000")
     #pprint(new_tag)
     
     #tag_id = new_tag.get("id")
-    #tag_id = '131e8267-e9ca-49b3-a7c5-861b22ce7da0'
+    #tag_id = '8b573e62-4a7e-45f6-a7b2-38a43b24a0f3'
 
     #if tag_id:
         #print("Updating the tag...")
-        #updated_tag = api.update_tag(tag_id, color="#FFA500")
+        #updated_tag = api.tags.update_tag(tag_id, color="#FFA500")
         #pprint(updated_tag)
         
         #print("Deleting the tag...")
-        #delete_response = api.delete_tag(tag_id)
-        #pprint(delete_response.text)
+        #delete_response = api.tags.delete_tag(tag_id)

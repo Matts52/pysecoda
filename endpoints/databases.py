@@ -1,3 +1,8 @@
+import json
+import urllib.parse
+
+from .resources import ResourcesEndpoint
+
 class DatabasesEndpoint:
     """
     Handles database-related API requests.
@@ -8,6 +13,7 @@ class DatabasesEndpoint:
         Initializes the Database API.
         """
         self.client = client
+        self.resources = ResourcesEndpoint(client)
 
     def create_database(
         self,
@@ -80,6 +86,36 @@ class DatabasesEndpoint:
             "subscribers": subscribers,
         }
         return self.client.post("/database/databases/", data=data)
+
+    def get_databases(self):
+        """
+        Fetches the databases.
+
+        :return: API response containing the databases.
+        """
+        filter_dict = {"operator":"exact", "field":"type", "value":"database"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
+
+    def get_database_by_id(self, database_id: str):
+        """
+        Fetches the database.
+
+        :return: API response containing the database.
+        """
+        filter_dict = {"operator":"exact", "field":"id", "value":f"{database_id}"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
 
     def update_database(self, database_id: str, **kwargs):
         """

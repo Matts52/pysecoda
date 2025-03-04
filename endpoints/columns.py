@@ -1,3 +1,8 @@
+import json
+import urllib.parse
+
+from .resources import ResourcesEndpoint
+
 class ColumnsEndpoint:
     """
     Handles column-related API requests.
@@ -8,6 +13,7 @@ class ColumnsEndpoint:
         Initializes the Columns API.
         """
         self.client = client
+        self.resources = ResourcesEndpoint(client)
 
     def create_column(
         self,
@@ -84,6 +90,36 @@ class ColumnsEndpoint:
             "subscribers": subscribers,
         }
         return self.client.post("/table/column/", data=data)
+
+    def get_columns(self):
+        """
+        Fetches the columns.
+
+        :return: API response containing the columns.
+        """
+        filter_dict = {"operator":"exact", "field":"type", "value":"column"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
+
+    def get_column_by_id(self, column_id: str):
+        """
+        Fetches the column.
+
+        :return: API response containing the column.
+        """
+        filter_dict = {"operator":"exact", "field":"id", "value":f"{column_id}"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
 
     def update_column(self, column_id: str, **kwargs):
         """

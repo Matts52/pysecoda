@@ -1,3 +1,8 @@
+import json
+import urllib.parse
+
+from .resources import ResourcesEndpoint
+
 class DashboardsEndpoint:
     """
     Handles dashboard-related API requests.
@@ -8,6 +13,7 @@ class DashboardsEndpoint:
         Initializes the Dashboard API.
         """
         self.client = client
+        self.resources = ResourcesEndpoint(client)
 
     def create_dashboard(
         self,
@@ -84,6 +90,36 @@ class DashboardsEndpoint:
             "subscribers": subscribers,
         }
         return self.client.post("/dashboard/dashboards/", data=data)
+
+    def get_dashboards(self):
+        """
+        Fetches the dashboards.
+
+        :return: API response containing the dashboards.
+        """
+        filter_dict = {"operator":"exact", "field":"type", "value":"dashboard"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
+
+    def get_dashboard_by_id(self, dashboard_id: str):
+        """
+        Fetches the dashboard.
+
+        :return: API response containing the dashboard.
+        """
+        filter_dict = {"operator":"exact", "field":"id", "value":f"{dashboard_id}"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
 
     def update_dashboard(self, dashboard_id: str, **kwargs):
         """

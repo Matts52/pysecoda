@@ -16,6 +16,10 @@ from .endpoints.monitors import MonitorsEndpoint
 from .endpoints.tables import TablesEndpoint
 from .endpoints.questions import QuestionsEndpoint
 from .endpoints.queries import QueriesEndpoint
+from .endpoints.custom_properties import CustomPropertiesEndpoint
+from .endpoints.glossary import GlossaryEndpoint
+from .endpoints.integrations import IntegrationsEndpoint
+from .endpoints.events import EventsEndpoint
 
 class PySecoda(APIClient):
     """
@@ -56,3 +60,7 @@ class PySecoda(APIClient):
         self.tables = TablesEndpoint(self)
         self.questions = QuestionsEndpoint(self)
         self.queries = QueriesEndpoint(self)
+        self.custom_properties = CustomPropertiesEndpoint(self)
+        self.glossary = GlossaryEndpoint(self)
+        self.integrations = IntegrationsEndpoint(self)
+        self.events = EventsEndpoint(self)

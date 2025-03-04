@@ -1,3 +1,8 @@
+import json
+import urllib.parse
+
+from .resources import ResourcesEndpoint
+
 class SchemasEndpoint:
     """
     Handles schema-related API requests.
@@ -8,6 +13,7 @@ class SchemasEndpoint:
         Initializes the Schemas API.
         """
         self.client = client
+        self.resources = ResourcesEndpoint(client)
 
     def create_schema(
         self,
@@ -88,6 +94,36 @@ class SchemasEndpoint:
             "subscribers": subscribers,
         }
         return self.client.post("/database/schemas/", data=data)
+
+    def get_schemas(self):
+        """
+        Fetches the schemas.
+
+        :return: API response containing the schemas.
+        """
+        filter_dict = {"operator":"exact", "field":"type", "value":"schema"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
+
+    def get_schema_by_id(self, schema_id: str):
+        """
+        Fetches the schema.
+
+        :return: API response containing the schema.
+        """
+        filter_dict = {"operator":"exact", "field":"id", "value":f"{schema_id}"}
+        
+        # serialize the filter parameters
+        json_string = json.dumps(filter_dict)
+        encoded_string = urllib.parse.quote(json_string)
+        filter = f"filter={encoded_string}"
+
+        return self.resources.get_resources(filter=filter)
 
     def update_schema(self, schema_id: str, **kwargs):
         """
