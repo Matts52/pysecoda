@@ -1,5 +1,5 @@
 from .api_client import APIClient
-from .endpoints.tags import *
+from .endpoints.tags import TagsEndpoint
 from .endpoints.groups import GroupsEndpoint
 from .endpoints.users import UsersEndpoint
 from .endpoints.teams import TeamsEndpoint
