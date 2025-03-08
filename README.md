@@ -4,6 +4,8 @@ This is a basic implementation of a python wrapper for the [Secoda API](https://
 
 Currently, API version 1.0.0 is supported by this wrapper.
 
+Find the full implemenetation on [Github](https://github.com/Matts52/pysecoda)
+
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
