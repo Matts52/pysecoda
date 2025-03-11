@@ -8,7 +8,7 @@ Find the full implementation on [Github](https://github.com/Matts52/pysecoda)
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install `pysecoda`.
 
 ```bash
 pip install pysecoda
