@@ -21,7 +21,13 @@ from .endpoints.glossary import GlossaryEndpoint
 from .endpoints.integrations import IntegrationsEndpoint
 from .endpoints.events import EventsEndpoint
 
-class PySecoda(APIClient):
+REGION_URL = {
+    'NA': "https://api.secoda.co/",
+    'EU': "https://eapi.secoda.co/",
+    'APAC': "https://apac.secoda.co/"
+}
+
+class PySecoda():
     """
     An API wrapper for the Secoda platform API.
     """
@@ -33,14 +39,9 @@ class PySecoda(APIClient):
         :param api_key: Bearer token for authentication.
         """
 
-        if region == 'NA':
-            self.base_url = "https://api.secoda.co/"
-        elif region == 'EU':
-            self.base_url = "https://eapi.secoda.co/"
-        elif region == 'APAC':
-            self.base_url = "https://apac.secoda.co/"
-        else:
+        if region not in REGION_URL:
             raise ValueError("Invalid region. Please use one of 'NA', 'EU', or 'APAC'.")
+        self.base_url = REGION_URL[region]
 
         super().__init__(self.base_url, api_key)
         self.tags = TagsEndpoint(self)
