@@ -27,7 +27,7 @@ REGION_URL = {
     'APAC': "https://apac.secoda.co/"
 }
 
-class PySecoda():
+class PySecoda(APIClient):
     """
     An API wrapper for the Secoda platform API.
     """
