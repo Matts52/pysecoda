@@ -2,3 +2,4 @@ venv/
 pysecoda.egg-info/
 build/
 dist/
+test/

@@ -17,7 +17,7 @@ pip install pysecoda
 ## Usage
 
 ```python
-from pysecoda import PySecoda
+from pysecoda.pysecoda import PySecoda
 
 API_KEY = 'YOUR_API_KEY'
 
